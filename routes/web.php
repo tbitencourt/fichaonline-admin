@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SkillController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,15 +15,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('dashboard');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::prefix('3det')->name('3det.')->group(function () {
+        Route::prefix('rules')->name('rules.')->group(function () {
+            Route::resource('/skills', SkillController::class);
+        });
+    });
 });
