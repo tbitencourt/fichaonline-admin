@@ -1,4 +1,5 @@
 {
+    "name": "fichaonline-admin",
     "private": true,
     "type": "module",
     "scripts": {
